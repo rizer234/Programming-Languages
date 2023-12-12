@@ -6,7 +6,6 @@ from methods import eval_equation,plot_equation
 # read arguments
 program_filepath = sys.argv[1]
 
-
 ###########################
 #     Tokenize Program
 ###########################
@@ -87,8 +86,6 @@ for line in program_lines:
         token_counter += 3
 
 
-print(program)
-input()
 
 ###########################
 #     Interpret Program
