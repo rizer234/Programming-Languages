@@ -6,7 +6,3 @@ get e1
 eval e1
 plot e1 -10 10
 halt
-
-
-
-

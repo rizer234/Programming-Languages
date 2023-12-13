@@ -4,14 +4,14 @@ from methods import eval_equation,plot_equation
 
 
 # read arguments
-program_filepath = sys.argv[1]
+# program_filepath = sys.argv[1]
+program_filepath = "Program.oll"
 
 ###########################
 #     Tokenize Program
 ###########################
 
 
-# read file lines
 # read file lines
 program_lines = []
 with open(program_filepath, "r") as program_file:
