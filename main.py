@@ -11,6 +11,13 @@ line_number = 1
 variables = {}
 declared_variables = []
 
+os.system("clear")
+print ("""
+       *** welcome to plotting language ***
+       enter "--help" to see commands
+       """)
+input("Press Enter to Start Program")
+
 while (True):
     command = get_command(line_number)
 
