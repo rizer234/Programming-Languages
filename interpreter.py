@@ -1,5 +1,6 @@
 from entities import Equation
 from methods import eval_equation,plot_equation
+from colorama import Fore
 
 def command_processor(command: str, vars: dict, declared_vars: list, line_number: int):
     parts  = command.split(" ")
@@ -20,32 +21,32 @@ def command_processor(command: str, vars: dict, declared_vars: list, line_number
     
     elif opcode == "set":
         if parts[1] not in declared_vars:
-            print (parts[1].equation + " not declared")
+            print (f"{Fore.YELLOW}{parts[1].equation} not declared")
         else:
             vars[parts[1]].equation = parts[2]
         return line_number+1
 
     elif opcode == "print":
         print_string = ' '.join(parts[1:])[1:-1]
-        print (print_string)
+        print (f"{Fore.YELLOW}{print_string}")
         return line_number+1
     
     elif opcode == "eval":
         if parts[1] not in declared_vars:
-            print (parts[1] + " not declared")
+            print ( f"{Fore.YELLOW}{parts[1]} not declared")
         else:
             vars[parts[1]].finalEquation, vars[parts[1]].varCount = eval_equation(vars[parts[1]].equation)
         return line_number+1
     
     elif opcode == "plot":
         if parts[1] not in declared_vars:
-            print (parts[1] + " not declared")
+            print (f"{Fore.YELLOW}{parts[1]} not declared")
         else:
             plot_equation(vars[parts[1]], ((int(parts[2])), int(parts[3])) )
         return line_number+1
 
     elif len(parts) == 1 and opcode in declared_vars:
-        print (vars[opcode].equation)
+        print (f"{Fore.YELLOW}{vars[opcode].equation}")
         return line_number+1
 
     elif opcode == "--help":
@@ -62,6 +63,6 @@ def command_processor(command: str, vars: dict, declared_vars: list, line_number
         return line_number+1
 
     else:
-        print (""""Please enter correct statement
+        print (f"""{Fore.YELLOW}Please enter correct statement
                "--help" command for view commands""")
         return line_number
