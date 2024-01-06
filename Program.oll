@@ -1,8 +1,7 @@
 
 declare e1 string
-!--set e1 = 'x2+5y=0'
+!--set e1 'x2+5y=0'
 print 'Enter a mathematical equation (use 'x,y,z' as the variable): '
-get e1
 eval e1
 plot e1 -10 10
 halt
