@@ -42,6 +42,8 @@ def command_processor(command: str, vars: dict, declared_vars: list, line_number
         if parts[1] not in declared_vars:
             print (f"{Fore.YELLOW}{parts[1]} not declared")
         else:
+            if len(parts) < 3:
+                parts += [-10, 10]
             plot_equation(vars[parts[1]], ((int(parts[2])), int(parts[3])) )
         return line_number+1
 
