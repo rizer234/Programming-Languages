@@ -57,7 +57,6 @@ def command_processor(command: str, vars: dict, declared_vars: list, line_number
                - declare x string: creates x var
                - {\\var}: returns {var} value
                - set x eq: sets eq to x var
-               - print 'string': displayes your statement
                - eval eq: evaluates your eq equation
                - plot eq x1 x2: plotting your eq equation in range x1 to x2
                - halt: for exit from app
