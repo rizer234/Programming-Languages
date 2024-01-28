@@ -6,14 +6,20 @@ import copy
 from text_box import get_input
 
 
-def solve_equations_system(equationArray,variable_symbols=[symbols(chr(97 + i)) for i in range(26)]) :
+def solve_equations_system(equationArray) :
+
+    variable_symbols = set()
 
     for i in range(len(equationArray)):
-        eq = equationArray[i]
+        eq: str = equationArray[i]
         if '=' not in eq:
             print('wrong equations,try again!')
-            return
-        equationArray[i] = equationArray[i].replace('=', '-(') + ')'
+        else:
+            eq=eq.replace(" ", "")
+            variable_symbols.update(eq[0])
+            equationArray[i] = re.sub(r'(\d)([A-Za-z])', r'\1*\2', equationArray[i])
+            equationArray[i] = re.sub(r'([A-Za-z])(\d)', r'\1^\2', equationArray[i])
+            equationArray[i] = equationArray[i].replace('=', '-(') + ')'
 
     independent_eqs = solve(equationArray, variable_symbols , dict=True)
     solvedDic = copy.deepcopy(independent_eqs)
@@ -43,6 +49,5 @@ def solve_equations_system(equationArray,variable_symbols=[symbols(chr(97 + i)) 
             }
 
 
-# result = solve_equations_system(["y=x+2","z=2*y-1","w=z+y"],["y","z","w"])
-# print(result)
-
+#result = solve_equations_system(["y=x+2","z=2y-1","w=z+y"])
+#print(result)

@@ -1,3 +1,4 @@
+from sympy import Eq, symbols
 from entities import Equation
 from methods import eval_equation,plot_equation
 from colorama import Fore
@@ -24,7 +25,7 @@ def command_processor(command: str, vars: dict, declared_vars: list, line_number
     
     elif opcode == "set":
         if parts[1] not in declared_vars:
-            print (f"{Fore.YELLOW}{parts[1].equation} not declared")
+            print (f"{Fore.YELLOW}{parts[1]} not declared")
         else:
             vars[parts[1]].equation = parts[2]
         return line_number+1
@@ -42,16 +43,19 @@ def command_processor(command: str, vars: dict, declared_vars: list, line_number
         return line_number+1
     
     elif opcode == "solve":
-        equations = parts[1:]
-        if not set(equations).issubset(set(declared_vars)):
+        equations = [vars[eq].equation for eq in parts[1:]]
+        if not set(parts[1:]).issubset(set(declared_vars)):
             print ( f"{Fore.YELLOW}one of equations not declared")
         else:
             res = solve_equations_system(equations)
-            solved_vars = res["solved_vars"]
+            solved_vars = res["solved_vars"][0]
             print (f"{Fore.YELLOW}{solved_vars}")
-            independent_eqs = res["independent_eqs"]
-            vars.update(independent_eqs)
-            return line_number+1
+            independent_eqs = res["independent_eqs"][0]
+            vars_keys = vars.keys()
+            for var in vars_keys:
+                var_letter = vars[var].equation[0]
+                vars[var].equation = var_letter + ' = ' + str(independent_eqs[symbols(var_letter)])
+        return line_number+1
     
     elif opcode == "plot":
         if parts[1] not in declared_vars:
