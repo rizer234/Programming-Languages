@@ -2,6 +2,9 @@ from entities import Equation
 from methods import eval_equation,plot_equation
 from colorama import Fore
 
+from equation_solver import solve_equations_system
+
+
 def command_processor(command: str, vars: dict, declared_vars: list, line_number: int):
     parts  = command.split(" ")
     opcode = parts[0]
@@ -38,6 +41,18 @@ def command_processor(command: str, vars: dict, declared_vars: list, line_number
             vars[parts[1]].finalEquation, vars[parts[1]].varCount = eval_equation(vars[parts[1]].equation)
         return line_number+1
     
+    elif opcode == "solve":
+        equations = parts[1:]
+        if not set(equations).issubset(set(declared_vars)):
+            print ( f"{Fore.YELLOW}one of equations not declared")
+        else:
+            res = solve_equations_system(equations)
+            solved_vars = res["solved_vars"]
+            print (f"{Fore.YELLOW}{solved_vars}")
+            independent_eqs = res["independent_eqs"]
+            vars.update(independent_eqs)
+            return line_number+1
+    
     elif opcode == "plot":
         if parts[1] not in declared_vars:
             print (f"{Fore.YELLOW}{parts[1]} not declared")
@@ -58,6 +73,7 @@ def command_processor(command: str, vars: dict, declared_vars: list, line_number
                - {\\var}: returns {var} value
                - set x eq: sets eq to x var
                - eval eq: evaluates your eq equation
+               - solve *eq: solves equations
                - plot eq x1 x2: plotting your eq equation in range x1 to x2
                - halt: for exit from app
                """)
