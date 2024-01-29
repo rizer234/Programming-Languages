@@ -24,8 +24,8 @@ def plot_equation_2d(equationObj, x_range=(-10, 10), num_points=400):
 
 
 
-    #plt.scatter(newx, newy)
-    plt.plot(newx, newy)
+    plt.scatter(newx, newy)
+    #plt.plot(newx, newy)
 
     plt.title(f'Plot of {equationObj.equation}')
     plt.xlabel('x-axis')

@@ -44,3 +44,7 @@ while (True):
 
     line_number = command_processor(command, variables, declared_variables, line_number)
     input()
+
+
+
+    #(x2+y2-1)^3-(x2)*y3=0 
